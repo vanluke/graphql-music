@@ -1,0 +1,36 @@
+version: '3.1'
+
+services:
+  db:
+    image: postgres:11.4-alpine
+    environment:
+      POSTGRES_DB: db
+      POSTGRES_USER: john
+      POSTGRES_PASSWORD: password
+    expose:
+      - '5432'
+    ports:
+      - '5001:5432'
+  adminer:
+    image: adminer
+    ports:
+      - 5002:8080
+  app:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgres://$POSTGRES_USER:$POSTGRES_PASSWORD@db/$POSTGRES_DB
+      NODE_ENV: development
+      PORT: 3000
+    ports:
+      - '3000:3000'
+    command: npm run dev
+    volumes:
+      - .:/home/app/
+      - /home/app/node_modules
+volumes:
+  esdata:
+    driver: local
