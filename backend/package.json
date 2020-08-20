@@ -20,7 +20,7 @@
   "author": "Lukasz Gonciarz",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^3.0.7",
+    "bcrypt": "^5.0.0",
     "cors": "^2.8.5",
     "db-migrate": "^0.11.6",
     "db-migrate-pg": "^1.0.0",
